@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pocket Spend - Smart Expense Tracker</title>
+    <title>PocketSpend - Smart Expense Tracker</title>
     <style>
         * {
             -webkit-tap-highlight-color: transparent !important;
@@ -15,7 +15,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            background: radial-gradient(circle at top left, #1e293b, #0f172a, #020617);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -30,15 +30,13 @@
             width: 100%;
             max-width: 420px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border-left: 1px solid rgba(255, 255, 255, 0.15);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.15);
             padding: 20px;
             overflow-y: auto;
         }
@@ -59,60 +57,60 @@
 
         /* Splash Screen */
         .splash-title {
-            font-size: 36px;
+            font-size: 38px;
             font-weight: 800;
             letter-spacing: 1px;
-            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
-            margin-bottom: 10px;
+            text-shadow: 0 4px 20px rgba(56, 189, 248, 0.4);
+            margin-bottom: 8px;
         }
         .splash-sub {
             font-size: 15px;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.65);
             margin-bottom: 30px;
         }
         .glass-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 14px 30px;
             border-radius: 20px;
             font-size: 16px;
             font-weight: bold;
             color: #ffffff;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.4);
             transition: 0.2s;
         }
         .glass-btn:active {
             transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.22);
         }
 
         /* Card Styles */
         .card-box {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             padding: 25px;
             border-radius: 24px;
             width: 90%;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.2);
         }
         .custom-input {
             width: 100%;
-            background: rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 12px;
             border-radius: 14px;
             color: #ffffff;
             font-size: 16px;
             font-weight: bold;
-            margin: 15px 0;
+            margin: 12px 0;
             outline: none;
             text-align: center;
         }
@@ -121,7 +119,7 @@
             color: #ffffff;
         }
         .custom-input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.45);
         }
 
         /* Main Dashboard Screen */
@@ -137,6 +135,7 @@
             font-size: 18px;
             font-weight: bold;
             color: #38bdf8;
+            text-shadow: 0 2px 10px rgba(56,189,248,0.3);
         }
         .top-icons {
             display: flex;
@@ -144,7 +143,7 @@
         }
         .top-icon-btn {
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -157,21 +156,22 @@
 
         .balance-card {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             width: 100%;
-            padding: 18px;
+            padding: 20px;
             border-radius: 24px;
             text-align: center;
             margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.25);
         }
         .balance-amount {
-            font-size: 30px;
+            font-size: 32px;
             font-weight: bold;
             color: #34d399;
             margin-top: 5px;
+            text-shadow: 0 2px 15px rgba(52,211,153,0.3);
         }
 
         /* Menu Grid */
@@ -183,50 +183,51 @@
             margin-bottom: 15px;
         }
         .menu-item {
-            background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 15px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            padding: 16px 10px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.2);
             transition: 0.15s;
         }
         .menu-item:active {
             transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.18);
         }
         .menu-icon {
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 6px;
         }
         .menu-text {
             font-size: 13px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
         }
 
         /* Quick Add Form */
         .input-box {
             width: 100%;
             background: rgba(255, 255, 255, 0.07);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             padding: 15px;
             border-radius: 20px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.15);
         }
         .input-box input {
             background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 10px;
             border-radius: 12px;
             color: #fff;
@@ -235,17 +236,38 @@
             text-align: center;
         }
 
+        /* History List Box */
+        .history-box {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 10px;
+            max-height: 120px;
+            overflow-y: auto;
+            text-align: left;
+            margin-bottom: 10px;
+        }
+        .history-item {
+            font-size: 12px;
+            color: rgba(255,255,255,0.8);
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            justify-content: space-between;
+        }
+
         /* About Us Screen */
         .about-card {
             background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             padding: 25px;
             border-radius: 24px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
         }
         .developer-name {
             font-size: 20px;
@@ -261,7 +283,7 @@
         
         <!-- Screen 1: Splash Screen -->
         <div id="splashScreen" class="screen active">
-            <div class="splash-title">Pocket Spend</div>
+            <div class="splash-title">PocketSpend</div>
             <div class="splash-sub">Smart Expense & Wallet Tracker</div>
             <button class="glass-btn" onclick="goToAgeScreen()">Get Started</button>
         </div>
@@ -270,7 +292,7 @@
         <div id="ageScreen" class="screen">
             <div class="card-box">
                 <h2>Welcome</h2>
-                <p style="font-size: 14px; color: rgba(255,255,255,0.6);">Please select your age group:</p>
+                <p style="font-size: 14px; color: rgba(255,255,255,0.7);">Please select your age group:</p>
                 <select id="ageSelect" class="custom-input">
                     <option value="12+">12 Years & Above</option>
                     <option value="18+">18 Years & Above (Adult)</option>
@@ -284,8 +306,8 @@
         <div id="balanceSetupScreen" class="screen">
             <div class="card-box">
                 <h2>Set Initial Balance</h2>
-                <p style="font-size: 14px; color: rgba(255,255,255,0.6);">Enter your starting money / budget:</p>
-                <input type="number" id="initialBalanceInput" class="custom-input" placeholder="e.g. 50000">
+                <p style="font-size: 14px; color: rgba(255,255,255,0.7);">Enter your starting money / budget:</p>
+                <input type="number" id="initialBalanceInput" class="custom-input" placeholder="e.g. 5000">
                 <button class="glass-btn" style="width: 100%; margin-top: 10px;" onclick="goToDashboard()">Start App</button>
             </div>
         </div>
@@ -293,32 +315,24 @@
         <!-- Screen 4: Main Dashboard -->
         <div id="dashboardScreen" class="screen" style="justify-content: flex-start;">
             <div class="dashboard-header">
-                <div class="app-logo">Pocket Spend</div>
+                <div class="app-logo">PocketSpend</div>
                 <div class="top-icons">
-                    <div id="userAgeBadge" style="font-size: 11px; background: rgba(56,189,248,0.2); padding: 5px 10px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.4); display:flex; align-items:center;">12+</div>
+                    <div id="userAgeBadge" style="font-size: 11px; background: rgba(56,189,248,0.25); padding: 5px 10px; border-radius: 10px; border: 1px solid rgba(56,189,248,0.4); display:flex; align-items:center; font-weight: bold;">12+</div>
                     <div class="top-icon-btn" onclick="openAboutUs()" title="About Us">ℹ️</div>
                 </div>
             </div>
 
             <!-- Total Balance Card -->
             <div class="balance-card">
-                <div style="font-size: 13px; color: rgba(255,255,255,0.6);">Total Balance</div>
+                <div style="font-size: 13px; color: rgba(255,255,255,0.65);">Total Balance</div>
                 <div class="balance-amount">$<span id="totalBalance">0</span></div>
             </div>
 
-            <!-- Menu Grid -->
+            <!-- Menu Grid with "Create Your Spend" -->
             <div class="menu-grid">
-                <div class="menu-item" onclick="quickExpense(500)">
-                    <div class="menu-icon">🍔</div>
-                    <div class="menu-text">- $500 Food</div>
-                </div>
-                <div class="menu-item" onclick="quickExpense(1000)">
-                    <div class="menu-icon">🛍️</div>
-                    <div class="menu-text">- $1,000 Spend</div>
-                </div>
-                <div class="menu-item" onclick="addCustomExpense()">
+                <div class="menu-item" onclick="createCustomSpend()">
                     <div class="menu-icon">✍️</div>
-                    <div class="menu-text">Custom Spend</div>
+                    <div class="menu-text">Create Your Spend</div>
                 </div>
                 <div class="menu-item" onclick="resetBalance()">
                     <div class="menu-icon">🔄</div>
@@ -326,9 +340,15 @@
                 </div>
             </div>
 
+            <!-- History / Recent Transactions Preview -->
+            <div style="width: 100%; text-align: left; font-size: 12px; color: #38bdf8; margin-bottom: 5px; font-weight: bold;">Recent Expenses</div>
+            <div class="history-box" id="historyList">
+                <div class="history-item" style="color: rgba(255,255,255,0.4); justify-content: center;">No expenses recorded yet</div>
+            </div>
+
             <!-- Quick Add Form -->
             <div class="input-box">
-                <div style="font-size: 13px; font-weight: bold; color: #38bdf8;">Add Income / Fund</div>
+                <div style="font-size: 13px; font-weight: bold; color: #34d399;">Add Income / Fund</div>
                 <input type="number" id="incomeInput" placeholder="Enter amount...">
                 <button class="glass-btn" style="padding: 10px; font-size: 14px;" onclick="addIncome()">Add to Balance</button>
             </div>
@@ -337,9 +357,9 @@
         <!-- Screen 5: About Us Screen -->
         <div id="aboutScreen" class="screen">
             <div class="about-card">
-                <h2>About Pocket Spend</h2>
-                <p style="font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; margin-top: 10px;">
-                    Pocket Spend is a smart personal finance application engineered to help you effortlessly manage daily expenses, track budgets, and maintain financial control.
+                <h2>About PocketSpend</h2>
+                <p style="font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.5; margin-top: 10px;">
+                    PocketSpend is a smart personal finance application engineered to help you effortlessly manage daily expenses and track your custom budgets with a stunning glass UI.
                 </p>
                 <div style="margin: 20px 0;">
                     <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Developed By</div>
@@ -354,6 +374,7 @@
     <script>
         let balance = 0;
         let userAgeGroup = "12+";
+        let transactions = [];
 
         function goToAgeScreen() {
             document.getElementById('splashScreen').classList.remove('active');
@@ -383,28 +404,32 @@
 
         function updateDisplay() {
             document.getElementById('totalBalance').innerText = balance.toLocaleString();
-        }
-
-        function quickExpense(amount) {
-            if (balance >= amount) {
-                balance -= amount;
-                updateDisplay();
-                triggerVibrate();
+            
+            let historyContainer = document.getElementById('historyList');
+            if (transactions.length === 0) {
+                historyContainer.innerHTML = '<div class="history-item" style="color: rgba(255,255,255,0.4); justify-content: center;">No expenses recorded yet</div>';
             } else {
-                alert("Insufficient balance!");
+                historyContainer.innerHTML = '';
+                transactions.forEach(item => {
+                    historyContainer.innerHTML += `<div class="history-item"><span>${item.name}</span><span style="color:#f87171;">- $${item.amount.toLocaleString()}</span></div>`;
+                });
             }
         }
 
-        function addCustomExpense() {
-            let val = prompt("Enter expense amount:");
-            if (val && !isNaN(val)) {
-                let amt = parseFloat(val);
-                if (balance >= amt) {
-                    balance -= amt;
-                    updateDisplay();
-                    triggerVibrate();
-                } else {
-                    alert("Insufficient balance!");
+        function createCustomSpend() {
+            let categoryName = prompt("Enter expense name (e.g. Foods, Travel, Shopping):");
+            if (categoryName) {
+                let val = prompt(`Enter amount for "${categoryName}":`);
+                if (val && !isNaN(val)) {
+                    let amt = parseFloat(val);
+                    if (balance >= amt) {
+                        balance -= amt;
+                        transactions.unshift({ name: categoryName, amount: amt });
+                        updateDisplay();
+                        triggerVibrate();
+                    } else {
+                        alert("Insufficient balance!");
+                    }
                 }
             }
         }
