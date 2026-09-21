@@ -15,7 +15,7 @@
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at 20% 20%, #3b82f6 0%, #1e1b4b 40%, #020617 100%);
+            background: radial-gradient(circle at 15% 15%, #3b82f6 0%, #1e1b4b 45%, #020617 100%);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
@@ -30,15 +30,15 @@
             width: 100%;
             max-width: 420px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(60px);
+            -webkit-backdrop-filter: blur(60px);
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 
-                        inset 0 0 0 1.5px rgba(255, 255, 255, 0.3),
-                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                        inset 0 0 0 2px rgba(255, 255, 255, 0.35),
+                        inset 0 0 30px rgba(255, 255, 255, 0.15);
             padding: 20px;
             overflow-y: auto;
         }
@@ -59,13 +59,13 @@
 
         /* Splash Screen */
         .splash-title {
-            font-size: 40px;
+            font-size: 42px;
             font-weight: 800;
             letter-spacing: 1px;
             background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 25px rgba(96, 165, 250, 0.5);
+            text-shadow: 0 4px 30px rgba(96, 165, 250, 0.6);
             margin-bottom: 8px;
         }
         .splash-sub {
@@ -74,43 +74,43 @@
             margin-bottom: 30px;
         }
         .glass-btn {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid rgba(255, 255, 255, 0.45);
             padding: 14px 30px;
             border-radius: 22px;
             font-size: 16px;
             font-weight: bold;
             color: #ffffff;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
-                        inset 0 1px 1px rgba(255,255,255,0.7),
-                        inset 0 -2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.45), 
+                        inset 0 1.5px 2px rgba(255,255,255,0.8),
+                        inset 0 -3px 6px rgba(0,0,0,0.3);
             transition: 0.2s;
         }
         .glass-btn:active {
             transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.35);
         }
 
-        /* Card Styles (Liquid Glass Refraction) */
+        /* Card Styles (Advanced Liquid Glass) */
         .card-box {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 25px;
-            border-radius: 28px;
+            border-radius: 30px;
             width: 90%;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 
-                        inset 0 1px 2px rgba(255,255,255,0.6),
-                        inset 0 -2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 
+                        inset 0 2px 3px rgba(255,255,255,0.7),
+                        inset 0 -3px 8px rgba(0,0,0,0.3);
         }
         .custom-input {
             width: 100%;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             padding: 14px;
             border-radius: 16px;
             color: #ffffff;
@@ -119,11 +119,7 @@
             margin: 12px 0;
             outline: none;
             text-align: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-        .custom-input option {
-            background: #1e293b;
-            color: #ffffff;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
         }
         .custom-input::placeholder {
             color: rgba(255, 255, 255, 0.5);
@@ -139,20 +135,20 @@
             padding: 0 5px;
         }
         .app-logo {
-            font-size: 19px;
+            font-size: 20px;
             font-weight: bold;
             background: linear-gradient(135deg, #60a5fa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 10px rgba(96,165,250,0.4);
+            text-shadow: 0 2px 12px rgba(96,165,250,0.5);
         }
         .top-icons {
             display: flex;
             gap: 10px;
         }
         .top-icon-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             width: 38px;
             height: 38px;
             border-radius: 50%;
@@ -161,29 +157,29 @@
             align-items: center;
             cursor: pointer;
             font-size: 15px;
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.5);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
         }
 
         .balance-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             width: 100%;
             padding: 22px;
-            border-radius: 28px;
+            border-radius: 30px;
             text-align: center;
             margin-bottom: 15px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.35), 
-                        inset 0 1px 2px rgba(255,255,255,0.6),
-                        inset 0 -2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 
+                        inset 0 2px 3px rgba(255,255,255,0.7),
+                        inset 0 -3px 8px rgba(0,0,0,0.3);
         }
         .balance-amount {
             font-size: 34px;
             font-weight: bold;
             color: #4ade80;
             margin-top: 5px;
-            text-shadow: 0 2px 20px rgba(74,222,128,0.5);
+            text-shadow: 0 2px 20px rgba(74,222,128,0.6);
         }
 
         /* Menu Grid */
@@ -195,25 +191,25 @@
             margin-bottom: 15px;
         }
         .menu-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border: 1px solid rgba(255, 255, 255, 0.32);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.38);
             padding: 18px 10px;
-            border-radius: 22px;
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 
-                        inset 0 1px 2px rgba(255,255,255,0.5),
-                        inset 0 -2px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.35), 
+                        inset 0 1.5px 2px rgba(255,255,255,0.6),
+                        inset 0 -2px 5px rgba(0,0,0,0.25);
             transition: 0.15s;
         }
         .menu-item:active {
             transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.22);
+            background: rgba(255, 255, 255, 0.25);
         }
         .menu-icon {
             font-size: 26px;
@@ -228,21 +224,21 @@
         /* Quick Add Form */
         .input-box {
             width: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(35px);
-            border: 1px solid rgba(255, 255, 255, 0.32);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.38);
             padding: 16px;
-            border-radius: 22px;
+            border-radius: 24px;
             display: flex;
             flex-direction: column;
             gap: 10px;
             margin-bottom: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3), 
-                        inset 0 1px 2px rgba(255,255,255,0.5);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.35), 
+                        inset 0 1.5px 2px rgba(255,255,255,0.6);
         }
         .input-box input {
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.35);
             padding: 12px;
             border-radius: 14px;
             color: #fff;
@@ -256,14 +252,14 @@
         .history-box {
             width: 100%;
             background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             border-radius: 18px;
             padding: 10px;
             max-height: 120px;
             overflow-y: auto;
             text-align: left;
             margin-bottom: 10px;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.35);
         }
         .history-item {
             font-size: 12px;
@@ -276,15 +272,15 @@
 
         /* About Us Screen */
         .about-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
-            backdrop-filter: blur(40px);
-            -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 25px;
-            border-radius: 28px;
+            border-radius: 30px;
             width: 90%;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 1px 2px rgba(255,255,255,0.6);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.7);
         }
         .developer-name {
             font-size: 20px;
@@ -305,22 +301,7 @@
             <button class="glass-btn" onclick="checkInitialFlow()">Get Started</button>
         </div>
 
-        <!-- Screen 2: Age Verification Screen -->
-        <div id="ageScreen" class="screen">
-            <div class="card-box">
-                <h2>Welcome</h2>
-                <p style="font-size: 14px; color: rgba(255,255,255,0.75);">Please select your age group to continue:</p>
-                <select id="ageSelect" class="custom-input">
-                    <option value="" disabled selected>-- Select Age Group --</option>
-                    <option value="12+">12 Years & Above</option>
-                    <option value="18+">18 Years & Above (Adult)</option>
-                    <option value="Custom">Custom Age</option>
-                </select>
-                <button class="glass-btn" style="width: 100%; margin-top: 10px;" onclick="goToBalanceScreen()">Next</button>
-            </div>
-        </div>
-
-        <!-- Screen 3: Initial Balance Setup Screen -->
+        <!-- Screen 2: Initial Balance Setup Screen (Age selection removed) -->
         <div id="balanceSetupScreen" class="screen">
             <div class="card-box">
                 <h2>Set Initial Balance</h2>
@@ -330,12 +311,11 @@
             </div>
         </div>
 
-        <!-- Screen 4: Main Dashboard -->
+        <!-- Screen 3: Main Dashboard -->
         <div id="dashboardScreen" class="screen" style="justify-content: flex-start;">
             <div class="dashboard-header">
                 <div class="app-logo">PocketSpend</div>
                 <div class="top-icons">
-                    <div id="userAgeBadge" style="font-size: 11px; background: rgba(96,165,250,0.25); padding: 5px 10px; border-radius: 12px; border: 1px solid rgba(96,165,250,0.4); display:flex; align-items:center; font-weight: bold;">12+</div>
                     <div class="top-icon-btn" onclick="openAboutUs()" title="About Us">ℹ️</div>
                 </div>
             </div>
@@ -372,7 +352,7 @@
             </div>
         </div>
 
-        <!-- Screen 5: About Us Screen -->
+        <!-- Screen 4: About Us Screen -->
         <div id="aboutScreen" class="screen">
             <div class="about-card">
                 <h2>About PocketSpend</h2>
@@ -391,21 +371,21 @@
 
     <script>
         let balance = 0;
-        let userAgeGroup = "12+";
         let transactions = [];
 
         window.onload = function() {
             let savedBalance = localStorage.getItem('ps_balance');
-            let savedAge = localStorage.getItem('ps_age');
             let savedTransactions = localStorage.getItem('ps_transactions');
 
-            if (savedBalance !== null && savedAge !== null) {
+            if (savedBalance !== null && !isNaN(parseFloat(savedBalance))) {
                 balance = parseFloat(savedBalance);
-                userAgeGroup = savedAge;
                 if (savedTransactions) {
-                    transactions = JSON.parse(savedTransactions);
+                    try {
+                        transactions = JSON.parse(savedTransactions) || [];
+                    } catch(e) {
+                        transactions = [];
+                    }
                 }
-                document.getElementById('userAgeBadge').innerText = userAgeGroup;
                 document.getElementById('splashScreen').classList.remove('active');
                 document.getElementById('dashboardScreen').classList.add('active');
                 updateDisplay();
@@ -414,30 +394,15 @@
 
         function checkInitialFlow() {
             let savedBalance = localStorage.getItem('ps_balance');
-            if (savedBalance !== null) {
+            if (savedBalance !== null && !isNaN(parseFloat(savedBalance))) {
+                balance = parseFloat(savedBalance);
                 document.getElementById('splashScreen').classList.remove('active');
                 document.getElementById('dashboardScreen').classList.add('active');
                 updateDisplay();
             } else {
                 document.getElementById('splashScreen').classList.remove('active');
-                document.getElementById('ageScreen').classList.add('active');
+                document.getElementById('balanceSetupScreen').classList.add('active');
             }
-        }
-
-        function goToAgeScreen() {
-            document.getElementById('splashScreen').classList.remove('active');
-            document.getElementById('ageScreen').classList.add('active');
-        }
-
-        function goToBalanceScreen() {
-            let select = document.getElementById('ageSelect').value;
-            if (!select) {
-                alert("Please select your age group first!");
-                return;
-            }
-            userAgeGroup = select;
-            document.getElementById('ageScreen').classList.remove('active');
-            document.getElementById('balanceSetupScreen').classList.add('active');
         }
 
         function goToDashboard() {
@@ -448,17 +413,16 @@
                 balance = 0; 
             }
 
-            localStorage.setItem('ps_balance', balance);
-            localStorage.setItem('ps_age', userAgeGroup);
-            localStorage.setItem('ps_transactions', JSON.stringify(transactions));
-
-            document.getElementById('userAgeBadge').innerText = userAgeGroup;
+            saveData();
             document.getElementById('balanceSetupScreen').classList.remove('active');
             document.getElementById('dashboardScreen').classList.add('active');
             updateDisplay();
         }
 
         function updateDisplay() {
+            if (isNaN(balance) || balance === null) {
+                balance = 0;
+            }
             document.getElementById('totalBalance').innerText = balance.toLocaleString();
             
             let historyContainer = document.getElementById('historyList');
@@ -491,10 +455,6 @@
             }
         }
 
-        large-btn-check: {
-            // Internal safety check
-        }
-
         function addIncome() {
             let input = document.getElementById('incomeInput');
             let val = parseFloat(input.value);
@@ -520,6 +480,7 @@
         }
 
         function saveData() {
+            if (isNaN(balance)) balance = 0;
             localStorage.setItem('ps_balance', balance);
             localStorage.setItem('ps_transactions', JSON.stringify(transactions));
         }
