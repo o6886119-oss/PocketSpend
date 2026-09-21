@@ -43,48 +43,33 @@
             overflow-y: auto;
         }
 
-        /* Screens Management */
+        /* Screen Management */
         .screen {
             display: none;
             width: 100%;
             height: 100%;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             text-align: center;
         }
         .screen.active {
             display: flex;
         }
 
-        /* Splash Screen */
-        .splash-title {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 30px rgba(96, 165, 250, 0.6);
-            margin-bottom: 8px;
-        }
-        .splash-sub {
-            font-size: 15px;
-            color: rgba(255, 255, 255, 0.75);
-            margin-bottom: 30px;
-        }
+        /* Glass Buttons & Cards */
         .glass-btn {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
             backdrop-filter: blur(35px);
             -webkit-backdrop-filter: blur(35px);
             border: 1px solid rgba(255, 255, 255, 0.45);
-            padding: 14px 30px;
-            border-radius: 22px;
-            font-size: 16px;
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-size: 15px;
             font-weight: bold;
             color: #ffffff;
             cursor: pointer;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.45), 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
                         inset 0 1.5px 2px rgba(255,255,255,0.8),
                         inset 0 -3px 6px rgba(0,0,0,0.3);
             transition: 0.2s;
@@ -94,57 +79,22 @@
             background: rgba(255, 255, 255, 0.35);
         }
 
-        /* Card Styles (Advanced Liquid Glass) */
-        .card-box {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 25px;
-            border-radius: 30px;
-            width: 90%;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 
-                        inset 0 2px 3px rgba(255,255,255,0.7),
-                        inset 0 -3px 8px rgba(0,0,0,0.3);
-        }
-        .custom-input {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            padding: 14px;
-            border-radius: 16px;
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: bold;
-            margin: 12px 0;
-            outline: none;
-            text-align: center;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.4);
-        }
-        .custom-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        /* Main Dashboard Screen */
+        /* Main Dashboard Screen Header */
         .dashboard-header {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
-            padding: 0 5px;
+            padding: 5px;
         }
         .app-logo {
-            font-size: 20px;
-            font-weight: bold;
-            background: linear-gradient(135deg, #60a5fa, #c084fc);
+            font-size: 22px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 12px rgba(96,165,250,0.5);
-        }
-        .top-icons {
-            display: flex;
-            gap: 10px;
+            text-shadow: 0 2px 15px rgba(96,165,250,0.5);
         }
         .top-icon-btn {
             background: rgba(255, 255, 255, 0.12);
@@ -160,22 +110,23 @@
             box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
         }
 
+        /* Balance Card (Liquid Glass) */
         .balance-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
             backdrop-filter: blur(50px);
             -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.45);
             width: 100%;
-            padding: 22px;
+            padding: 24px;
             border-radius: 30px;
             text-align: center;
             margin-bottom: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4), 
-                        inset 0 2px 3px rgba(255,255,255,0.7),
+                        inset 0 2px 3px rgba(255,255,255,0.75),
                         inset 0 -3px 8px rgba(0,0,0,0.3);
         }
         .balance-amount {
-            font-size: 34px;
+            font-size: 36px;
             font-weight: bold;
             color: #4ade80;
             margin-top: 5px;
@@ -255,7 +206,7 @@
             border: 1px solid rgba(255, 255, 255, 0.22);
             border-radius: 18px;
             padding: 10px;
-            max-height: 120px;
+            max-height: 130px;
             overflow-y: auto;
             text-align: left;
             margin-bottom: 10px;
@@ -278,9 +229,10 @@
             border: 1px solid rgba(255, 255, 255, 0.4);
             padding: 25px;
             border-radius: 30px;
-            width: 90%;
+            width: 100%;
             text-align: center;
             box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.7);
+            margin-top: 50px;
         }
         .developer-name {
             font-size: 20px;
@@ -294,30 +246,11 @@
 
     <div id="appContainer">
         
-        <!-- Screen 1: Splash Screen -->
-        <div id="splashScreen" class="screen active">
-            <div class="splash-title">PocketSpend</div>
-            <div class="splash-sub">Smart Expense & Wallet Tracker</div>
-            <button class="glass-btn" onclick="checkInitialFlow()">Get Started</button>
-        </div>
-
-        <!-- Screen 2: Initial Balance Setup Screen (Age selection removed) -->
-        <div id="balanceSetupScreen" class="screen">
-            <div class="card-box">
-                <h2>Set Initial Balance</h2>
-                <p style="font-size: 14px; color: rgba(255,255,255,0.75);">Enter your starting money / budget:</p>
-                <input type="number" id="initialBalanceInput" class="custom-input" placeholder="e.g. 5000">
-                <button class="glass-btn" style="width: 100%; margin-top: 10px;" onclick="goToDashboard()">Start App</button>
-            </div>
-        </div>
-
-        <!-- Screen 3: Main Dashboard -->
-        <div id="dashboardScreen" class="screen" style="justify-content: flex-start;">
+        <!-- Screen 1: Main Dashboard (Directly loaded) -->
+        <div id="dashboardScreen" class="screen active">
             <div class="dashboard-header">
                 <div class="app-logo">PocketSpend</div>
-                <div class="top-icons">
-                    <div class="top-icon-btn" onclick="openAboutUs()" title="About Us">ℹ️</div>
-                </div>
+                <div class="top-icon-btn" onclick="openAboutUs()" title="About Us">ℹ️</div>
             </div>
 
             <!-- Total Balance Card -->
@@ -326,7 +259,7 @@
                 <div class="balance-amount">$<span id="totalBalance">0</span></div>
             </div>
 
-            <!-- Menu Grid with "Create Your Spend" -->
+            <!-- Menu Grid -->
             <div class="menu-grid">
                 <div class="menu-item" onclick="createCustomSpend()">
                     <div class="menu-icon">✍️</div>
@@ -348,11 +281,11 @@
             <div class="input-box">
                 <div style="font-size: 13px; font-weight: bold; color: #4ade80;">Add Income / Fund</div>
                 <input type="number" id="incomeInput" placeholder="Enter amount...">
-                <button class="glass-btn" style="padding: 10px; font-size: 14px;" onclick="addIncome()">Add to Balance</button>
+                <button class="glass-btn" style="width: 100%; padding: 10px; font-size: 14px;" onclick="addIncome()">Add to Balance</button>
             </div>
         </div>
 
-        <!-- Screen 4: About Us Screen -->
+        <!-- Screen 2: About Us Screen -->
         <div id="aboutScreen" class="screen">
             <div class="about-card">
                 <h2>About PocketSpend</h2>
@@ -379,45 +312,19 @@
 
             if (savedBalance !== null && !isNaN(parseFloat(savedBalance))) {
                 balance = parseFloat(savedBalance);
-                if (savedTransactions) {
-                    try {
-                        transactions = JSON.parse(savedTransactions) || [];
-                    } catch(e) {
-                        transactions = [];
-                    }
+            } else {
+                balance = 0;
+            }
+
+            if (savedTransactions) {
+                try {
+                    transactions = JSON.parse(savedTransactions) || [];
+                } catch(e) {
+                    transactions = [];
                 }
-                document.getElementById('splashScreen').classList.remove('active');
-                document.getElementById('dashboardScreen').classList.add('active');
-                updateDisplay();
             }
-        };
-
-        function checkInitialFlow() {
-            let savedBalance = localStorage.getItem('ps_balance');
-            if (savedBalance !== null && !isNaN(parseFloat(savedBalance))) {
-                balance = parseFloat(savedBalance);
-                document.getElementById('splashScreen').classList.remove('active');
-                document.getElementById('dashboardScreen').classList.add('active');
-                updateDisplay();
-            } else {
-                document.getElementById('splashScreen').classList.remove('active');
-                document.getElementById('balanceSetupScreen').classList.add('active');
-            }
-        }
-
-        function goToDashboard() {
-            let inputVal = document.getElementById('initialBalanceInput').value;
-            if (inputVal && !isNaN(inputVal)) {
-                balance = parseFloat(inputVal);
-            } else {
-                balance = 0; 
-            }
-
-            saveData();
-            document.getElementById('balanceSetupScreen').classList.remove('active');
-            document.getElementById('dashboardScreen').classList.add('active');
             updateDisplay();
-        }
+        };
 
         function updateDisplay() {
             if (isNaN(balance) || balance === null) {
