@@ -3,410 +3,797 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PocketSpend - Smart Expense Tracker</title>
+    <title>PocketSpend</title>
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="PocketSpend">
+    <meta property="og:description" content="Simple Money Manager with iOS Liquid Glass UI">
+    <meta property="og:type" content="website">
     <style>
         * {
             -webkit-tap-highlight-color: transparent !important;
-            -webkit-touch-callout: none !important;
             user-select: none !important;
-            outline: none !important;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
         body {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at 15% 15%, #3b82f6 0%, #1e1b4b 45%, #020617 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #060913;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            touch-action: manipulation;
             overflow: hidden;
             color: #ffffff;
         }
+
+        /* Ambient iOS 26 Atmospheric Glow Orbs */
+        .liquid-bg {
+            position: absolute;
+            width: 100%;
+            max-width: 420px;
+            height: 100vh;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.6;
+        }
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(14, 116, 144, 0.55);
+            top: -60px;
+            left: -60px;
+        }
+        .orb-2 {
+            width: 320px;
+            height: 320px;
+            background: rgba(79, 70, 229, 0.45);
+            bottom: -60px;
+            right: -60px;
+        }
+        .orb-3 {
+            width: 240px;
+            height: 240px;
+            background: rgba(236, 72, 153, 0.35);
+            top: 45%;
+            left: 20%;
+        }
+
         #appContainer {
             position: relative;
             width: 100%;
             max-width: 420px;
             height: 100vh;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(60px);
-            -webkit-backdrop-filter: blur(60px);
+            background: rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(100px);
+            -webkit-backdrop-filter: blur(100px);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
-                        inset 0 0 0 2px rgba(255, 255, 255, 0.35),
-                        inset 0 0 30px rgba(255, 255, 255, 0.15);
-            padding: 20px;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.98), 
+                        inset 0 0 0 1px rgba(255, 255, 255, 0.25),
+                        inset 0 0 50px rgba(255, 255, 255, 0.05);
+            padding: 20px 18px;
             overflow-y: auto;
+            z-index: 1;
+        }
+        #appContainer::-webkit-scrollbar {
+            width: 3px;
+        }
+        #appContainer::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
         }
 
-        /* Screen Management */
+        /* Screen States */
         .screen {
             display: none;
             width: 100%;
-            height: 100%;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            text-align: center;
+            flex: 1;
+            padding-bottom: 80px;
         }
         .screen.active {
             display: flex;
         }
 
-        /* Glass Buttons & Cards */
-        .glass-btn {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05));
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border: 1px solid rgba(255, 255, 255, 0.45);
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-size: 15px;
-            font-weight: bold;
-            color: #ffffff;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4), 
-                        inset 0 1.5px 2px rgba(255,255,255,0.8),
-                        inset 0 -3px 6px rgba(0,0,0,0.3);
-            transition: 0.2s;
-        }
-        .glass-btn:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        /* Main Dashboard Screen Header */
-        .dashboard-header {
+        /* Top Header */
+        .header {
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            padding: 5px;
+            margin-bottom: 18px;
         }
-        .app-logo {
+        .app-title {
             font-size: 22px;
             font-weight: 800;
-            background: linear-gradient(135deg, #60a5fa, #c084fc, #f472b6);
+            background: linear-gradient(135deg, #f8fafc, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 2px 15px rgba(96,165,250,0.5);
+            letter-spacing: -0.5px;
         }
-        .top-icon-btn {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            width: 38px;
-            height: 38px;
+        .info-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
+            color: #fff;
+            font-size: 14px;
             cursor: pointer;
-            font-size: 15px;
-            box-shadow: inset 0 1px 2px rgba(255,255,255,0.6);
+            backdrop-filter: blur(30px);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.4);
         }
 
-        /* Balance Card (Liquid Glass) */
-        .balance-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.45);
+        /* iOS Liquid Glass Cards */
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(60px);
+            -webkit-backdrop-filter: blur(60px);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            border-radius: 26px;
+            padding: 18px;
             width: 100%;
-            padding: 24px;
-            border-radius: 30px;
+            margin-bottom: 14px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 
+                        inset 0 1.5px 4px rgba(255,255,255,0.5),
+                        inset 0 -4px 10px rgba(0,0,0,0.3);
+        }
+
+        .balance-card {
             text-align: center;
-            margin-bottom: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 
-                        inset 0 2px 3px rgba(255,255,255,0.75),
-                        inset 0 -3px 8px rgba(0,0,0,0.3);
+            padding: 22px;
+        }
+        .balance-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.65);
+            margin-bottom: 4px;
+            letter-spacing: 0.3px;
         }
         .balance-amount {
-            font-size: 36px;
-            font-weight: bold;
-            color: #4ade80;
-            margin-top: 5px;
-            text-shadow: 0 2px 20px rgba(74,222,128,0.6);
+            font-size: 34px;
+            font-weight: 800;
+            color: #38bdf8;
+            letter-spacing: -1px;
         }
 
-        /* Menu Grid */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            width: 100%;
-            margin-bottom: 15px;
+        /* Action Row Buttons */
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
         }
-        .menu-item {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
+        .glass-btn {
+            flex: 1;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.04));
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 20px;
+            padding: 14px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4), inset 0 1px 3px rgba(255,255,255,0.6);
+            transition: transform 0.1s ease, background 0.2s ease;
+        }
+        .glass-btn:active {
+            transform: scale(0.97);
+            background: rgba(255, 255, 255, 0.25);
+        }
+        .glass-btn.primary {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.35), rgba(14, 116, 144, 0.2));
+            border-color: rgba(56, 189, 248, 0.6);
+            color: #e0f2fe;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 16px 0 10px 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .section-action {
+            font-size: 12px;
+            color: #38bdf8;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Transaction List Row */
+        .tx-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.06);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.38);
-            padding: 18px 10px;
-            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.3);
+        }
+        .tx-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .tx-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .tx-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .tx-date {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 2px;
+        }
+        .tx-amount {
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .tx-amount.expense { color: #f87171; }
+        .tx-amount.income { color: #4ade80; }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .mini-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            padding: 12px 8px;
+            text-align: center;
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.25);
+        }
+        .mini-label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4px;
+        }
+        .mini-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            height: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(255, 255, 255, 0.02));
+            border-left: 3px solid #38bdf8;
+            border-radius: 16px;
+            padding: 12px 14px;
+            margin-bottom: 8px;
+            font-size: 12.5px;
+            color: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(30px);
+        }
+
+        /* Add Expense / Income Form Styles */
+        .form-group {
+            margin-bottom: 14px;
+            width: 100%;
+        }
+        .form-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 6px;
+            display: block;
+        }
+        .amount-input-box {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 20px;
+            padding: 14px;
+            font-size: 26px;
+            font-weight: 800;
+            color: #38bdf8;
+            width: 100%;
+            text-align: center;
+            outline: none;
+            backdrop-filter: blur(40px);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+        }
+        .amount-input-box::placeholder {
+            color: rgba(255, 255, 255, 0.25);
+        }
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        .cat-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 10px 6px;
+            text-align: center;
+            font-size: 11.5px;
+            font-weight: 600;
+            color: #fff;
+            cursor: pointer;
+            backdrop-filter: blur(20px);
+            transition: all 0.2s;
+        }
+        .cat-chip.selected {
+            background: rgba(56, 189, 248, 0.35);
+            border-color: #38bdf8;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+        .text-input {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: #fff;
+            width: 100%;
+            outline: none;
+            backdrop-filter: blur(30px);
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 15, 30, 0.75);
+            backdrop-filter: blur(50px);
+            -webkit-backdrop-filter: blur(50px);
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 4px 16px 4px;
+            z-index: 10;
+        }
+        .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.35), 
-                        inset 0 1.5px 2px rgba(255,255,255,0.6),
-                        inset 0 -2px 5px rgba(0,0,0,0.25);
-            transition: 0.15s;
-        }
-        .menu-item:active {
-            transform: scale(0.95);
-            background: rgba(255, 255, 255, 0.25);
-        }
-        .menu-icon {
-            font-size: 26px;
-            margin-bottom: 6px;
-        }
-        .menu-text {
-            font-size: 13px;
+            gap: 3px;
+            font-size: 10px;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.98);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            flex: 1;
         }
-
-        /* Quick Add Form */
-        .input-box {
-            width: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.38);
-            padding: 16px;
-            border-radius: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 12px 35px rgba(0,0,0,0.35), 
-                        inset 0 1.5px 2px rgba(255,255,255,0.6);
+        .nav-item.active {
+            color: #38bdf8;
         }
-        .input-box input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.35);
-            padding: 12px;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            text-align: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-        }
-
-        /* History List Box */
-        .history-box {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            border-radius: 18px;
-            padding: 10px;
-            max-height: 130px;
-            overflow-y: auto;
-            text-align: left;
-            margin-bottom: 10px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.35);
-        }
-        .history-item {
-            font-size: 12px;
-            color: rgba(255,255,255,0.85);
-            padding: 6px 8px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* About Us Screen */
-        .about-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.04));
-            backdrop-filter: blur(50px);
-            -webkit-backdrop-filter: blur(50px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            padding: 25px;
-            border-radius: 30px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), inset 0 2px 3px rgba(255,255,255,0.7);
-            margin-top: 50px;
-        }
-        .developer-name {
-            font-size: 20px;
-            font-weight: bold;
-            color: #60a5fa;
-            margin: 10px 0;
+        .nav-icon {
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
+    <!-- Ambient Liquid Background Orbs -->
+    <div class="liquid-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <div id="appContainer">
         
-        <!-- Screen 1: Main Dashboard (Directly loaded) -->
-        <div id="dashboardScreen" class="screen active">
-            <div class="dashboard-header">
-                <div class="app-logo">PocketSpend</div>
-                <div class="top-icon-btn" onclick="openAboutUs()" title="About Us">ℹ️</div>
+        <!-- HOME SCREEN -->
+        <div id="homeScreen" class="screen active">
+            <div class="header">
+                <div class="app-title">PocketSpend</div>
+                <div class="info-btn" onclick="alert('PocketSpend: Your simple, intuitive money manager designed with iOS Liquid Glass UI.')">i</div>
             </div>
 
-            <!-- Total Balance Card -->
-            <div class="balance-card">
-                <div style="font-size: 13px; color: rgba(255,255,255,0.75);">Total Balance</div>
-                <div class="balance-amount">$<span id="totalBalance">0</span></div>
+            <!-- Total Balance Glass Card -->
+            <div class="glass-card balance-card">
+                <div class="balance-label">Total Balance</div>
+                <div class="balance-amount" id="totalBalanceDisplay">৳0</div>
             </div>
 
-            <!-- Menu Grid -->
-            <div class="menu-grid">
-                <div class="menu-item" onclick="createCustomSpend()">
-                    <div class="menu-icon">✍️</div>
-                    <div class="menu-text">Create Your Spend</div>
+            <!-- Action Buttons -->
+            <div class="action-row">
+                <div class="glass-btn primary" onclick="openAddScreen('expense')">+ Add Expense</div>
+                <div class="glass-btn" onclick="openAddScreen('income')">+ Add Income</div>
+            </div>
+
+            <!-- Recent Expenses -->
+            <div class="section-title">
+                <span>Recent Expenses</span>
+                <span class="section-action" onclick="switchTab('expenses')">View All</span>
+            </div>
+            <div id="recentExpensesContainer">
+                <div style="text-align: center; padding: 20px; font-size: 12px; color: rgba(255,255,255,0.4);">No expenses recorded yet</div>
+            </div>
+
+            <!-- Money Overview -->
+            <div class="section-title">Money Overview</div>
+            <div class="overview-grid">
+                <div class="mini-card">
+                    <div class="mini-label">Income</div>
+                    <div class="mini-value" id="overviewIncome">৳0</div>
                 </div>
-                <div class="menu-item" onclick="resetWalletData()">
-                    <div class="menu-icon">🔄</div>
-                    <div class="menu-text">Reset Wallet</div>
+                <div class="mini-card">
+                    <div class="mini-label">Spent</div>
+                    <div class="mini-value" id="overviewSpent">৳0</div>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-label">Remaining</div>
+                    <div class="mini-value" id="overviewRemaining">৳0</div>
                 </div>
             </div>
 
-            <!-- History / Recent Transactions Preview -->
-            <div style="width: 100%; text-align: left; font-size: 12px; color: #60a5fa; margin-bottom: 5px; font-weight: bold;">Recent Expenses</div>
-            <div class="history-box" id="historyList">
-                <div class="history-item" style="color: rgba(255,255,255,0.4); justify-content: center;">No expenses recorded yet</div>
+            <!-- Monthly Budget -->
+            <div class="section-title">Monthly Budget</div>
+            <div class="glass-card" style="padding: 14px 16px; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 600;">
+                    <span style="color: rgba(255,255,255,0.7);">Spent / Budget</span>
+                    <span id="budgetText">৳0 / ৳10,000</span>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-fill" id="budgetProgress" style="width: 0%;"></div>
+                </div>
+                <div style="font-size: 11px; color: rgba(255,255,255,0.5); text-align: right;" id="budgetRemainingText">৳10,000 left from budget</div>
             </div>
 
-            <!-- Quick Add Form -->
-            <div class="input-box">
-                <div style="font-size: 13px; font-weight: bold; color: #4ade80;">Add Income / Fund</div>
-                <input type="number" id="incomeInput" placeholder="Enter amount...">
-                <button class="glass-btn" style="width: 100%; padding: 10px; font-size: 14px;" onclick="addIncome()">Add to Balance</button>
+            <!-- Spending Insights -->
+            <div class="section-title">Spending Insights</div>
+            <div id="insightsContainer">
+                <div class="insight-box">💡 Welcome to PocketSpend! Start tracking your daily expenses to see smart insights here.</div>
             </div>
         </div>
 
-        <!-- Screen 2: About Us Screen -->
-        <div id="aboutScreen" class="screen">
-            <div class="about-card">
-                <h2>About PocketSpend</h2>
-                <p style="font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.5; margin-top: 10px;">
-                    PocketSpend is a smart personal finance application engineered to help you effortlessly manage daily expenses and track your custom budgets with a stunning liquid glass UI.
-                </p>
-                <div style="margin: 20px 0;">
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Developed By</div>
-                    <div class="developer-name">Abu Afnan Tajriyan</div>
-                </div>
-                <button class="glass-btn" style="width: 100%;" onclick="closeAboutUs()">Back to Dashboard</button>
+        <!-- EXPENSES SCREEN -->
+        <div id="expensesScreen" class="screen">
+            <div class="header">
+                <div class="app-title">All Expenses</div>
+                <div class="info-btn" onclick="resetWalletConfirm()" title="Reset Wallet">🗑️</div>
             </div>
+            <div id="fullExpensesContainer" style="flex: 1; overflow-y: auto;">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+
+        <!-- BUDGET SCREEN -->
+        <div id="budgetScreen" class="screen">
+            <div class="header">
+                <div class="app-title">Budget Manager</div>
+            </div>
+            <div class="glass-card">
+                <div class="form-group">
+                    <label class="form-label">Set Monthly Budget Limit (৳)</label>
+                    <input type="number" id="monthlyBudgetInput" class="text-input" value="10000" onchange="updateBudgetLimit(this.value)">
+                </div>
+                <div style="font-size: 12px; color: rgba(255,255,255,0.6); line-height: 1.4;">
+                    Setting a realistic budget helps you keep track of your spending effortlessly without feeling overwhelmed.
+                </div>
+            </div>
+        </div>
+
+        <!-- INSIGHTS SCREEN -->
+        <div id="insightsScreen" class="screen">
+            <div class="header">
+                <div class="app-title">Smart Insights</div>
+            </div>
+            <div id="fullInsightsContainer">
+                <div class="insight-box">📊 Your spending patterns will appear here as you log transactions.</div>
+            </div>
+        </div>
+
+        <!-- SETTINGS SCREEN -->
+        <div id="settingsScreen" class="screen">
+            <div class="header">
+                <div class="app-title">Settings</div>
+            </div>
+            <div class="glass-card" onclick="resetWalletConfirm()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <div style="font-size: 15px; font-weight: 700; color: #f87171;">Reset Wallet Data</div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Clear all income, expenses and reset balance</div>
+                </div>
+                <span style="font-size: 18px;">›</span>
+            </div>
+        </div>
+
+        <!-- ADD TRANSACTION MODAL / SCREEN -->
+        <div id="addTransactionScreen" class="screen">
+            <div class="header">
+                <div class="app-title" id="addScreenTitle">Add Expense</div>
+                <div class="info-btn" onclick="switchTab('home')">✕</div>
+            </div>
+
+            <div class="form-group">
+                <input type="number" id="txAmount" class="amount-input-box" placeholder="৳ 0">
+            </div>
+
+            <div class="form-group" id="categoryGroup">
+                <label class="form-label">Select Category</label>
+                <div class="category-grid">
+                    <div class="cat-chip selected" onclick="selectCategory('🍔 Food', this)">🍔 Food</div>
+                    <div class="cat-chip" onclick="selectCategory('🚕 Transport', this)">🚕 Transport</div>
+                    <div class="cat-chip" onclick="selectCategory('🛒 Shopping', this)">🛒 Shopping</div>
+                    <div class="cat-chip" onclick="selectCategory('📱 Mobile', this)">📱 Mobile</div>
+                    <div class="cat-chip" onclick="selectCategory('🏠 Bills', this)">🏠 Bills</div>
+                    <div class="cat-chip" onclick="selectCategory('🎮 Fun', this)">🎮 Fun</div>
+                    <div class="cat-chip" onclick="selectCategory('💊 Health', this)">💊 Health</div>
+                    <div class="cat-chip" onclick="selectCategory('📚 Education', this)">📚 Education</div>
+                    <div class="cat-chip" onclick="selectCategory('💡 Other', this)">💡 Other</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Note (Optional)</label>
+                <input type="text" id="txNote" class="text-input" placeholder="e.g. Lunch with friend">
+            </div>
+
+            <div style="margin-top: auto; padding-top: 10px;">
+                <div class="glass-btn primary" style="padding: 16px; font-size: 15px;" onclick="saveTransaction()">Save Transaction</div>
+            </div>
+        </div>
+
+        <!-- BOTTOM NAVIGATION -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchTab('home')" id="navHome">
+                <span class="nav-icon">🏠</span>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('expenses')" id="navExpenses">
+                <span class="nav-icon">📜</span>
+                <span>Expenses</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('budget')" id="navBudget">
+                <span class="nav-icon">💳</span>
+                <span>Budget</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('insights')" id="navInsights">
+                <span class="nav-icon">📊</span>
+                <span>Insights</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('settings')" id="navSettings">
+                <span class="nav-icon">⚙️</span>
+                <span>Settings</span>
+            </button>
         </div>
 
     </div>
 
     <script>
-        let balance = 0;
-        let transactions = [];
+        // State Management & LocalStorage
+        let transactions = JSON.parse(localStorage.getItem('pocketspend_txs')) || [];
+        let monthlyBudget = parseFloat(localStorage.getItem('pocketspend_budget')) || 10000;
+        let currentType = 'expense';
+        let selectedCat = '🍔 Food';
 
-        window.onload = function() {
-            let savedBalance = localStorage.getItem('ps_balance');
-            let savedTransactions = localStorage.getItem('ps_transactions');
+        document.getElementById('monthlyBudgetInput').value = monthlyBudget;
 
-            if (savedBalance !== null && !isNaN(parseFloat(savedBalance))) {
-                balance = parseFloat(savedBalance);
-            } else {
-                balance = 0;
+        function switchTab(tab) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+            if (tab === 'home') {
+                document.getElementById('homeScreen').classList.add('active');
+                document.getElementById('navHome').classList.add('active');
+            } else if (tab === 'expenses') {
+                document.getElementById('expensesScreen').classList.add('active');
+                document.getElementById('navExpenses').classList.add('active');
+                renderAllExpenses();
+            } else if (tab === 'budget') {
+                document.getElementById('budgetScreen').classList.add('active');
+                document.getElementById('navBudget').classList.add('active');
+            } else if (tab === 'insights') {
+                document.getElementById('insightsScreen').classList.add('active');
+                document.getElementById('navInsights').classList.add('active');
+                renderInsights();
+            } else if (tab === 'settings') {
+                document.getElementById('settingsScreen').classList.add('active');
+                document.getElementById('navSettings').classList.add('active');
             }
+        }
 
-            if (savedTransactions) {
-                try {
-                    transactions = JSON.parse(savedTransactions) || [];
-                } catch(e) {
-                    transactions = [];
-                }
-            }
-            updateDisplay();
-        };
-
-        function updateDisplay() {
-            if (isNaN(balance) || balance === null) {
-                balance = 0;
-            }
-            document.getElementById('totalBalance').innerText = balance.toLocaleString();
+        function openAddScreen(type) {
+            currentType = type;
+            document.getElementById('addScreenTitle').innerText = type === 'expense' ? 'Add Expense' : 'Add Income';
+            document.getElementById('categoryGroup').style.display = type === 'expense' ? 'block' : 'none';
+            document.getElementById('txAmount').value = '';
+            document.getElementById('txNote').value = '';
             
-            let historyContainer = document.getElementById('historyList');
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('addTransactionScreen').classList.add('active');
+        }
+
+        function selectCategory(cat, el) {
+            selectedCat = cat;
+            document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function saveTransaction() {
+            let amount = parseFloat(document.getElementById('txAmount').value);
+            let note = document.getElementById('txNote').value.trim();
+            if (!amount || amount <= 0) {
+                alert('Please enter a valid amount');
+                return;
+            }
+
+            let tx = {
+                id: Date.now(),
+                type: currentType,
+                amount: amount,
+                category: currentType === 'expense' ? selectedCat : '💰 Income / Fund',
+                note: note || (currentType === 'expense' ? selectedCat : 'Added Income'),
+                date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })
+            };
+
+            transactions.unshift(tx);
+            localStorage.setItem('pocketspend_txs', JSON.stringify(transactions));
+            
+            updateUI();
+            switchTab('home');
+        }
+
+        function updateBudgetLimit(val) {
+            monthlyBudget = parseFloat(val) || 10000;
+            localStorage.setItem('pocketspend_budget', monthlyBudget);
+            updateUI();
+        }
+
+        function resetWalletConfirm() {
+            if (confirm('Are you sure you want to reset all wallet transactions and data?')) {
+                transactions = [];
+                localStorage.removeItem('pocketspend_txs');
+                updateUI();
+                switchTab('home');
+            }
+        }
+
+        function updateUI() {
+            let totalIncome = 0;
+            let totalSpent = 0;
+
+            transactions.forEach(t => {
+                if (t.type === 'income') totalIncome += t.amount;
+                else totalSpent += t.amount;
+            });
+
+            let balance = totalIncome - totalSpent;
+            let remainingBudget = monthlyBudget - totalSpent;
+
+            document.getElementById('totalBalanceDisplay').innerText = `৳${balance.toLocaleString()}`;
+            document.getElementById('overviewIncome').innerText = `৳${totalIncome.toLocaleString()}`;
+            document.getElementById('overviewSpent').innerText = `৳${totalSpent.toLocaleString()}`;
+            document.getElementById('overviewRemaining').innerText = `৳${balance.toLocaleString()}`;
+
+            document.getElementById('budgetText').innerText = `৳${totalSpent.toLocaleString()} / ৳${monthlyBudget.toLocaleString()}`;
+            let progressPercent = Math.min(100, (totalSpent / monthlyBudget) * 100);
+            document.getElementById('budgetProgress').style.width = `${progressPercent}%`;
+            document.getElementById('budgetRemainingText').innerText = `৳${remainingBudget.toLocaleString()} left from monthly budget`;
+
+            // Render Recent Expenses (Top 3)
+            let recentContainer = document.getElementById('recentExpensesContainer');
             if (transactions.length === 0) {
-                historyContainer.innerHTML = '<div class="history-item" style="color: rgba(255,255,255,0.4); justify-content: center;">No expenses recorded yet</div>';
+                recentContainer.innerHTML = `<div style="text-align: center; padding: 20px; font-size: 12px; color: rgba(255,255,255,0.4);">No expenses recorded yet</div>`;
             } else {
-                historyContainer.innerHTML = '';
-                transactions.forEach(item => {
-                    historyContainer.innerHTML += `<div class="history-item"><span>${item.name}</span><span style="color:#f87171;">- $${item.amount.toLocaleString()}</span></div>`;
+                recentContainer.innerHTML = '';
+                transactions.slice(0, 3).forEach(t => {
+                    let icon = t.category.split(' ')[0] || '💸';
+                    let title = t.note || t.category;
+                    recentContainer.innerHTML += `
+                        <div class="tx-row">
+                            <div class="tx-left">
+                                <div class="tx-icon">${icon}</div>
+                                <div>
+                                    <div class="tx-title">${title}</div>
+                                    <div class="tx-date">${t.date}</div>
+                                </div>
+                            </div>
+                            <div class="tx-amount ${t.type}">${t.type === 'income' ? '+' : '-'}৳${t.amount.toLocaleString()}</div>
+                        </div>
+                    `;
                 });
             }
+
+            renderInsights();
         }
 
-        function createCustomSpend() {
-            let categoryName = prompt("Enter expense name (e.g. Foods, Travel, Shopping):");
-            if (categoryName) {
-                let val = prompt(`Enter amount for "${categoryName}":`);
-                if (val && !isNaN(val)) {
-                    let amt = parseFloat(val);
-                    if (balance >= amt) {
-                        balance -= amt;
-                        transactions.unshift({ name: categoryName, amount: amt });
-                        saveData();
-                        updateDisplay();
-                        triggerVibrate();
-                    } else {
-                        alert("Insufficient balance!");
-                    }
-                }
+        function renderAllExpenses() {
+            let container = document.getElementById('fullExpensesContainer');
+            if (transactions.length === 0) {
+                container.innerHTML = `<div style="text-align: center; padding: 40px; font-size: 13px; color: rgba(255,255,255,0.4);">No transactions recorded yet</div>`;
+                return;
             }
+            container.innerHTML = '';
+            transactions.forEach(t => {
+                let icon = t.category.split(' ')[0] || '💸';
+                let title = t.note || t.category;
+                container.innerHTML += `
+                    <div class="tx-row">
+                        <div class="tx-left">
+                            <div class="tx-icon">${icon}</div>
+                            <div>
+                                <div class="tx-title">${title}</div>
+                                <div class="tx-date">${t.date}</div>
+                            </div>
+                        </div>
+                        <div class="tx-amount ${t.type}">${t.type === 'income' ? '+' : '-'}৳${t.amount.toLocaleString()}</div>
+                    </div>
+                `;
+            });
         }
 
-        function addIncome() {
-            let input = document.getElementById('incomeInput');
-            let val = parseFloat(input.value);
-            if (val && !isNaN(val) && val > 0) {
-                balance += val;
-                input.value = "";
-                saveData();
-                updateDisplay();
-                triggerVibrate();
+        function renderInsights() {
+            let insightsContainer = document.getElementById('insightsContainer');
+            let fullInsights = document.getElementById('fullInsightsContainer');
+            
+            let totalSpent = transactions.filter(t => t.type === 'expense').reduce((sum, t) => sum + t.amount, 0);
+            let remainingBudget = monthlyBudget - totalSpent;
+
+            let html = `
+                <div class="insight-box">💡 You have ৳${remainingBudget.toLocaleString()} left from your monthly budget.</div>
+            `;
+
+            if (transactions.length > 0) {
+                html += `<div class="insight-box">📊 Total recorded transactions: ${transactions.length}. Keep tracking to stay on top of your money!</div>`;
             } else {
-                alert("Please enter a valid amount!");
+                html += `<div class="insight-box">🚀 Add your first expense or income to unlock personalized spending insights.</div>`;
             }
+
+            insightsContainer.innerHTML = html;
+            fullInsights.innerHTML = html;
         }
 
-        function resetWalletData() {
-            let newBalance = prompt("Enter new wallet balance to reset:", balance);
-            if (newBalance !== null && !isNaN(newBalance)) {
-                balance = parseFloat(newBalance);
-                transactions = [];
-                saveData();
-                updateDisplay();
-            }
-        }
-
-        function saveData() {
-            if (isNaN(balance)) balance = 0;
-            localStorage.setItem('ps_balance', balance);
-            localStorage.setItem('ps_transactions', JSON.stringify(transactions));
-        }
-
-        function openAboutUs() {
-            document.getElementById('dashboardScreen').classList.remove('active');
-            document.getElementById('aboutScreen').classList.add('active');
-        }
-
-        function closeAboutUs() {
-            document.getElementById('aboutScreen').classList.remove('active');
-            document.getElementById('dashboardScreen').classList.add('active');
-        }
-
-        function triggerVibrate() {
-            if (navigator.vibrate) {
-                navigator.vibrate(40);
-            }
-        }
+        // Initialize UI on load
+        updateUI();
     </script>
 </body>
 </html>
