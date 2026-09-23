@@ -6,7 +6,7 @@
     <title>PocketSpend</title>
     <!-- Open Graph Metadata -->
     <meta property="og:title" content="PocketSpend">
-    <meta property="og:description" content="Simple Money Manager with iOS Liquid Glass UI">
+    <meta property="og:description" content="Simple Money Manager with iOS Liquid Glass UI by Abu Afnan Tajriyan">
     <meta property="og:type" content="website">
     <style>
         :root {
@@ -36,7 +36,7 @@
             color: #ffffff;
         }
 
-        /* Dynamic Atmospheric Background Orbs for Glass Refraction */
+        /* Dynamic Atmospheric Background Orbs */
         .atmospheric-bg {
             position: absolute;
             width: 100%;
@@ -108,7 +108,7 @@
             width: 100%;
             flex-direction: column;
             flex: 1;
-            padding-bottom: 90px;
+            padding-bottom: 100px;
         }
         .screen.active {
             display: flex;
@@ -121,6 +121,27 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 18px;
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .back-btn {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-strength);
+            -webkit-backdrop-filter: var(--blur-strength);
+            border: 1px solid var(--glass-border);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: inset 0 1px 2px var(--glass-highlight);
         }
         .app-title {
             font-size: 22px;
@@ -161,7 +182,6 @@
             box-shadow: var(--glass-shadow), inset 0 1px 1px var(--glass-highlight);
             overflow: hidden;
         }
-        /* Top Refraction Highlight Line */
         .glass-card::before {
             content: '';
             position: absolute;
@@ -425,39 +445,76 @@
             box-shadow: inset 0 1px 1px var(--glass-highlight);
         }
 
-        /* Bottom Navigation Bar */
-        .bottom-nav {
+        /* Floating iOS Pill Bottom Navigation Bar */
+        .bottom-nav-container {
             position: absolute;
-            bottom: 0;
+            bottom: 16px;
             left: 0;
             width: 100%;
-            background: rgba(3, 7, 18, 0.65);
+            display: flex;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .bottom-nav {
+            pointer-events: auto;
+            display: flex;
+            background: rgba(15, 23, 42, 0.75);
             backdrop-filter: blur(40px) saturate(180%);
             -webkit-backdrop-filter: blur(40px) saturate(180%);
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
-            display: flex;
-            justify-content: space-around;
-            padding: 10px 4px 18px 4px;
-            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 35px;
+            padding: 6px 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.4);
+            gap: 4px;
         }
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 3px;
-            font-size: 10px;
+            justify-content: center;
+            gap: 2px;
+            font-size: 9.5px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.45);
             cursor: pointer;
             background: transparent;
             border: none;
-            flex: 1;
+            padding: 8px 12px;
+            border-radius: 25px;
+            transition: all 0.25s ease;
         }
         .nav-item.active {
             color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.3);
         }
         .nav-icon {
-            font-size: 18px;
+            font-size: 16px;
+        }
+
+        /* Info Modal Overlay */
+        #infoModal {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(3, 7, 18, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: var(--blur-strength);
+            border: 1px solid var(--glass-border);
+            border-radius: 26px;
+            padding: 24px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: var(--glass-shadow), inset 0 1px 1px var(--glass-highlight);
+            text-align: center;
         }
     </style>
 </head>
@@ -470,13 +527,27 @@
         <div class="light-orb orb-3"></div>
     </div>
 
+    <!-- Info Modal -->
+    <div id="infoModal">
+        <div class="modal-content">
+            <div style="font-size: 20px; font-weight: 800; margin-bottom: 10px; color: #38bdf8;">PocketSpend</div>
+            <div style="font-size: 13px; color: rgba(255,255,255,0.85); line-height: 1.5; margin-bottom: 16px;">
+                PocketSpend is a smart and elegant money manager designed to effortlessly track your daily expenses, income streams, and monthly budgets with an Apple-inspired Liquid Glass interface.
+            </div>
+            <div style="font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 20px;">
+                Developer: <strong style="color: #fff;">Abu Afnan Tajriyan</strong>
+            </div>
+            <div class="glass-btn primary" onclick="closeInfoModal()">Got it</div>
+        </div>
+    </div>
+
     <div id="appContainer">
         
         <!-- HOME SCREEN -->
         <div id="homeScreen" class="screen active">
             <div class="header">
                 <div class="app-title">PocketSpend</div>
-                <div class="info-btn" onclick="alert('PocketSpend: Simple, clean money manager with Apple Liquid Glass UI.')">i</div>
+                <div class="info-btn" onclick="openInfoModal()">i</div>
             </div>
 
             <!-- Total Balance Glass Card -->
@@ -519,9 +590,7 @@
 
             <!-- Monthly Budget Component -->
             <div class="section-title">Monthly Budget</div>
-            <div class="glass-card" id="budgetCardContainer" style="padding: 16px; margin-bottom: 12px;">
-                <!-- Rendered dynamically -->
-            </div>
+            <div class="glass-card" id="budgetCardContainer" style="padding: 16px; margin-bottom: 12px;"></div>
 
             <!-- Spending Insights -->
             <div class="section-title">Spending Insights</div>
@@ -533,7 +602,10 @@
         <!-- EXPENSES SCREEN -->
         <div id="expensesScreen" class="screen">
             <div class="header">
-                <div class="app-title">All Expenses</div>
+                <div class="header-left">
+                    <div class="back-btn" onclick="switchTab('home')">‹</div>
+                    <div class="app-title">All Expenses</div>
+                </div>
                 <div class="info-btn" onclick="resetWalletConfirm()" title="Reset Wallet">🗑️</div>
             </div>
             <div id="fullExpensesContainer" style="flex: 1; overflow-y: auto;"></div>
@@ -542,7 +614,10 @@
         <!-- BUDGET SCREEN -->
         <div id="budgetScreen" class="screen">
             <div class="header">
-                <div class="app-title">Budget Manager</div>
+                <div class="header-left">
+                    <div class="back-btn" onclick="switchTab('home')">‹</div>
+                    <div class="app-title">Budget Manager</div>
+                </div>
             </div>
             <div class="glass-card">
                 <div class="form-group">
@@ -562,7 +637,10 @@
         <!-- INSIGHTS SCREEN -->
         <div id="insightsScreen" class="screen">
             <div class="header">
-                <div class="app-title">Smart Insights</div>
+                <div class="header-left">
+                    <div class="back-btn" onclick="switchTab('home')">‹</div>
+                    <div class="app-title">Smart Insights</div>
+                </div>
             </div>
             <div id="fullInsightsContainer">
                 <div class="insight-box">📊 Your spending patterns will appear here as you log transactions.</div>
@@ -572,22 +650,40 @@
         <!-- SETTINGS SCREEN -->
         <div id="settingsScreen" class="screen">
             <div class="header">
-                <div class="app-title">Settings</div>
-            </div>
-            <div class="glass-card" onclick="resetWalletConfirm()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                    <div style="font-size: 15px; font-weight: 700; color: #f87171;">Reset Wallet Data</div>
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.5);">Clear all income, expenses and balance</div>
+                <div class="header-left">
+                    <div class="back-btn" onclick="switchTab('home')">‹</div>
+                    <div class="app-title">Settings</div>
                 </div>
-                <span style="font-size: 18px;">›</span>
+            </div>
+            
+            <!-- App Description Section -->
+            <div class="glass-card" style="margin-bottom: 14px;">
+                <div style="font-size: 14px; font-weight: 700; color: #38bdf8; margin-bottom: 8px;">About PocketSpend</div>
+                <div style="font-size: 12.5px; color: rgba(255,255,255,0.85); line-height: 1.5;">
+                    PocketSpend is a smart and lightweight financial companion app designed to help you effortlessly track daily expenses, manage income streams, and keep your monthly spending within budget limits through an immersive Liquid Glass UI.
+                </div>
+                <div style="font-size: 11.5px; color: rgba(255,255,255,0.5); margin-top: 10px;">
+                    Developer: <strong style="color: #fff;">Abu Afnan Tajriyan</strong>
+                </div>
+            </div>
+
+            <!-- Reset Data Option -->
+            <div class="glass-card" onclick="resetWalletConfirm()" style="cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                <div>
+                    <div style="font-size: 14px; font-weight: 700; color: #f87171;">Reset Wallet Data</div>
+                    <div style="font-size: 11.5px; color: rgba(255,255,255,0.5);">Clear all income, expenses and balance</div>
+                </div>
+                <span style="font-size: 18px; color: rgba(255,255,255,0.5);">›</span>
             </div>
         </div>
 
         <!-- ADD TRANSACTION MODAL SCREEN -->
         <div id="addTransactionScreen" class="screen">
             <div class="header">
-                <div class="app-title" id="addScreenTitle">Add Expense</div>
-                <div class="info-btn" onclick="switchTab('home')">✕</div>
+                <div class="header-left">
+                    <div class="back-btn" onclick="switchTab('home')">✕</div>
+                    <div class="app-title" id="addScreenTitle">Add Expense</div>
+                </div>
             </div>
 
             <div class="form-group">
@@ -619,28 +715,30 @@
             </div>
         </div>
 
-        <!-- BOTTOM NAVIGATION -->
-        <div class="bottom-nav">
-            <button class="nav-item active" onclick="switchTab('home')" id="navHome">
-                <span class="nav-icon">🏠</span>
-                <span>Home</span>
-            </button>
-            <button class="nav-item" onclick="switchTab('expenses')" id="navExpenses">
-                <span class="nav-icon">📜</span>
-                <span>Expenses</span>
-            </button>
-            <button class="nav-item" onclick="switchTab('budget')" id="navBudget">
-                <span class="nav-icon">💳</span>
-                <span>Budget</span>
-            </button>
-            <button class="nav-item" onclick="switchTab('insights')" id="navInsights">
-                <span class="nav-icon">📊</span>
-                <span>Insights</span>
-            </button>
-            <button class="nav-item" onclick="switchTab('settings')" id="navSettings">
-                <span class="nav-icon">⚙️</span>
-                <span>Settings</span>
-            </button>
+        <!-- Floating iOS Pill Bottom Navigation Bar -->
+        <div class="bottom-nav-container">
+            <div class="bottom-nav">
+                <button class="nav-item active" onclick="switchTab('home')" id="navHome">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('expenses')" id="navExpenses">
+                    <span class="nav-icon">📜</span>
+                    <span>Expenses</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('budget')" id="navBudget">
+                    <span class="nav-icon">💳</span>
+                    <span>Budget</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('insights')" id="navInsights">
+                    <span class="nav-icon">📊</span>
+                    <span>Insights</span>
+                </button>
+                <button class="nav-item" onclick="switchTab('settings')" id="navSettings">
+                    <span class="nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </button>
+            </div>
         </div>
 
     </div>
@@ -653,6 +751,14 @@
 
         if (monthlyBudget !== null && !isNaN(monthlyBudget)) {
             document.getElementById('monthlyBudgetInput').value = monthlyBudget;
+        }
+
+        function openInfoModal() {
+            document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').style.display = 'none';
         }
 
         function switchTab(tab) {
@@ -770,7 +876,6 @@
             document.getElementById('overviewSpent').innerText = `৳${totalSpent.toLocaleString()}`;
             document.getElementById('overviewRemaining').innerText = `৳${balance.toLocaleString()}`;
 
-            // Render Budget Section on Home
             let budgetContainer = document.getElementById('budgetCardContainer');
             if (monthlyBudget === null) {
                 budgetContainer.innerHTML = `
@@ -800,7 +905,6 @@
                 `;
             }
 
-            // Render Recent Expenses (Top 3)
             let recentContainer = document.getElementById('recentExpensesContainer');
             if (transactions.length === 0) {
                 recentContainer.innerHTML = `<div style="text-align: center; padding: 20px; font-size: 12px; color: rgba(255,255,255,0.4);">No expenses recorded yet</div>`;
@@ -876,7 +980,6 @@
             fullInsights.innerHTML = html;
         }
 
-        // Initialize UI on load
         updateUI();
     </script>
 </body>
